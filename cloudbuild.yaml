@@ -1,26 +1,11 @@
-# Step 1: Build the Docker image
-name: medi-go-backend-trigger
-description: Trigger to build FastAPI backend from GitHub
-source:
-  repoSource:
-    projectId: medi-go-eb65e
-    repoName: github_zeinasherif_medi-go-backend
-    branchName: master
-serviceAccount: projects/medi-go-eb65e/serviceAccounts/209756817692-compute@developer.gserviceaccount.com
-substitutions: {}
-tags: []
-triggerTemplate:
-  branchName: master
-  repoName: github_zeinasherif_medi-go-backend
-  projectId: medi-go-eb65e
-includedFiles:
-- '**'
 steps:
+  # Step 1: Build the Docker image
   - name: 'gcr.io/cloud-builders/docker'
     args: ['build', '-t', 'gcr.io/medi-go-eb65e/fastapi-backend', '.']
+
+  # Step 2: Push the Docker image to Container Registry
   - name: 'gcr.io/cloud-builders/docker'
     args: ['push', 'gcr.io/medi-go-eb65e/fastapi-backend']
+
 images:
   - 'gcr.io/medi-go-eb65e/fastapi-backend'
-options:
-  logging: CLOUD_LOGGING_ONLY
