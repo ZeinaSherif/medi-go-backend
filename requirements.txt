@@ -98,7 +98,7 @@ threadpoolctl==3.6.0
 tifffile==2024.8.30
 tokenizers==0.13.3
 toolz==1.0.0
-torch==2.0.1+cpu
+torch==2.0.1
 torchaudio==0.9.0
 torchvision==0.15.2+cpu
 tornado==6.5
