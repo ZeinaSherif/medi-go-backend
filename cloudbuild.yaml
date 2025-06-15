@@ -17,4 +17,4 @@ steps:
       - --allow-unauthenticated
 
 images:
-  - 'gcr.io/$PROJECT_ID/fastapi-backend'
+  - 'gcr.io/medi-go-eb65e/fastapi-backend'
