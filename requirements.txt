@@ -23,4 +23,7 @@ openpyxl
 pytz
 python-dotenv
 requests
-python-multipart     
+python-multipart    
+google-cloud-storage
+deep-translator
+
