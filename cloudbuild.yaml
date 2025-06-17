@@ -17,9 +17,10 @@ steps:
     args: [
       'run', 'deploy', 'medi-go-backend',
       '--image', 'gcr.io/medi-go-eb65e/medi-go-backend',
-      '--region', 'europe-west1',
+      '--region', 'us-central1',
       '--platform', 'managed',
       '--allow-unauthenticated',
+      '--port', '8000',
       '--set-env-vars',
       'EMAIL_USER=claramagdy60@gmail.com,EMAIL_PASS=***REDACTED***,SMTP_SERVER=smtp.gmail.com,SMTP_PORT=587'
     ]
