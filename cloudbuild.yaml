@@ -1,9 +1,32 @@
-options:
-  logging: CLOUD_LOGGING_ONLY
-
 steps:
+  # Step 1: Build the Docker image
   - name: 'gcr.io/cloud-builders/docker'
-    args: ['build', '-t', 'gcr.io/medi-go-eb65e/fastapi-backend', '.']
+    args: [
+      'build',
+      '--tag', 'gcr.io/medi-go-eb65e/medi-go-backend',
+      '--cache-from', 'gcr.io/medi-go-eb65e/medi-go-backend:latest',
+      '.'
+    ]
+
+  # Step 2: Push the Docker image to Container Registry
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['push', 'gcr.io/medi-go-eb65e/medi-go-backend']
+
+  # Step 3: Deploy the image to Cloud Run
+  - name: 'gcr.io/cloud-builders/gcloud'
+    args: [
+      'run', 'deploy', 'medi-go-backend',
+      '--image', 'gcr.io/medi-go-eb65e/medi-go-backend',
+      '--region', 'europe-west1',
+      '--platform', 'managed',
+      '--allow-unauthenticated',
+      '--set-env-vars',
+      'EMAIL_USER=claramagdy60@gmail.com,EMAIL_PASS=***REDACTED***,SMTP_SERVER=smtp.gmail.com,SMTP_PORT=587'
+    ]
 
 images:
-  - 'gcr.io/medi-go-eb65e/fastapi-backend'
+  - 'gcr.io/medi-go-eb65e/medi-go-backend'
+
+options:
+  machineType: 'E2_HIGHCPU_8'
+  logging: CLOUD_LOGGING_ONLY
